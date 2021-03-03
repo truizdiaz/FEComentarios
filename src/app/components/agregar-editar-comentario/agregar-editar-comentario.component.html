@@ -3,14 +3,23 @@
     <div class="mb-3">
         <label for="titulo" class="form-label">Titulo</label>
         <input formControlName="titulo" type="text" class="form-control" id="titulo">
+        <span class="text-danger" *ngIf="agregarComentario.get('titulo')?.invalid && agregarComentario.get('titulo')?.touched">
+            El <strong>titulo</strong> es requerido
+        </span>
     </div>
     <div class="mb-3">
         <label for="creador" class="form-label">Creador</label>
         <input formControlName="creador" type="text" class="form-control" id="Creador">
+        <span class="text-danger" *ngIf="agregarComentario.get('creador')?.invalid && agregarComentario.get('creador')?.touched">
+            El <strong>creador</strong> es requerido
+        </span>
     </div>
     <div class="mb-3">
         <label for="texto" class="form-label">Texto</label>
         <textarea formControlName="texto" class="form-control" id="texto" rows="8"></textarea>
+        <span class="text-danger" *ngIf="agregarComentario.get('texto')?.invalid && agregarComentario.get('texto')?.touched">
+            El <strong>texto</strong> es requerido
+        </span>
       </div>
       <button type="submit" class="btn btn-primary float-end">Aceptar</button>
       <button type="button" routerLink="/" class="btn btn-secondary">Volver</button>

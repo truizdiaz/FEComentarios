@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Comentario } from 'src/app/interfaces/Comentario';
 import { ComentarioService } from 'src/app/services/comentario.service';
 
@@ -18,7 +19,8 @@ export class AgregarEditarComentarioComponent implements OnInit {
   constructor(private fb: FormBuilder,
               private _comentarioService: ComentarioService,
               private router: Router,
-              private aRoute: ActivatedRoute) {
+              private aRoute: ActivatedRoute,
+              private toastr: ToastrService) {
     this.agregarComentario = this.fb.group({
       titulo: ['', Validators.required],
       creador: ['', Validators.required],
@@ -60,8 +62,10 @@ export class AgregarEditarComentarioComponent implements OnInit {
         fechaCreacion: new Date
       }
       this._comentarioService.saveComentario(comentario).subscribe(data => {
+        this.toastr.success('El comentario fue registrado con exito', 'Comentario registrado');
         this.router.navigate(['/']);
       }, error => {
+        this.toastr.error('Opss Ocurrio un error!','Error');
         console.log(error);
       })
     } else {
@@ -76,8 +80,10 @@ export class AgregarEditarComentarioComponent implements OnInit {
       }
 
       this._comentarioService.updateComentario(this.id, comentario).subscribe(data => {
+        this.toastr.info('El comentario fue actualizado con exito', 'Comentario actualizado');
         this.router.navigate(['/']);
       }, error => {
+        this.toastr.error('Opss Ocurrio un error!','Error');
         console.log(error);
       })
     }
