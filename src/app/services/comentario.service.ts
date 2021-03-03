@@ -23,4 +23,8 @@ export class ComentarioService {
   saveComentario(comentario: Comentario): Observable<any> {
     return this.http.post(this.myAppUrl + this.myApiUrl, comentario);
   }
+
+  getComentario(id: number): Observable<any> {
+    return this.http.get(this.myAppUrl + this.myApiUrl + id);
+  }
 }

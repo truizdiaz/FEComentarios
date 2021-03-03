@@ -1,8 +1,8 @@
-<div>
-    <h3>Angular</h3>
-    <h5>Angular es un framework creador por Google para crear SPA</h5>
+<div *ngIf="comentario != undefined">
+    <h3>{{ comentario.titulo }}</h3>
+    <h5>{{ comentario.texto }}</h5>
     <ul>
-        <li>Juan</li>
-        <li>12/12/2020</li>
+        <li>{{ comentario.creador }}</li>
+        <li>{{ comentario.fechaCreacion }}</li>
     </ul>
 </div>
