@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Comentario } from 'src/app/interfaces/Comentario';
+import { ComentarioService } from 'src/app/services/comentario.service';
 
 @Component({
   selector: 'app-list-comentarios',
@@ -13,9 +14,18 @@ export class ListComentariosComponent implements OnInit {
     { titulo: 'React', creador: 'Miguel', fechaCreacion: new Date(), texto: 'Libreria para crear SPA'},
   ]
 
-  constructor() { }
+  constructor(private _comentarioService: ComentarioService) { }
 
   ngOnInit(): void {
+    this.getComentarios();
+  }
+
+  getComentarios() {
+    this._comentarioService.getListComentarios().subscribe(data => {
+      console.log(data);
+    }, error => {
+      console.log(error);
+    })
   }
 
 }
