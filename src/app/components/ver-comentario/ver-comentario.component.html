@@ -3,6 +3,6 @@
     <h5>{{ comentario.texto }}</h5>
     <ul>
         <li>{{ comentario.creador }}</li>
-        <li>{{ comentario.fechaCreacion }}</li>
+        <li>{{ comentario.fechaCreacion | date:'dd/MM/yyyy'  }}</li>
     </ul>
 </div>
