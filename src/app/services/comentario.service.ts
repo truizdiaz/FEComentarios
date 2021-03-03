@@ -27,4 +27,8 @@ export class ComentarioService {
   getComentario(id: number): Observable<any> {
     return this.http.get(this.myAppUrl + this.myApiUrl + id);
   }
+
+  updateComentario(id: number, comentario: Comentario): Observable<any> {
+    return this.http.put(this.myAppUrl + this.myApiUrl + id, comentario);
+  }
 }

@@ -36,7 +36,7 @@ export class AgregarEditarComentarioComponent implements OnInit {
     if(this.id !== 0) {
       this.accion = 'Editar';
       this._comentarioService.getComentario(this.id).subscribe(data => {
-        console.log(data);
+        this.comentario = data;
         this.agregarComentario.patchValue({
           titulo: data.titulo,
           texto: data.texto,
@@ -48,18 +48,40 @@ export class AgregarEditarComentarioComponent implements OnInit {
     }
   }
 
-  agregar() {
+  agregarEdtiarComentario() {
 
-    const comentario: Comentario = {
-      titulo: this.agregarComentario.get('titulo')?.value,
-      creador: this.agregarComentario.get('creador')?.value,
-      texto: this.agregarComentario.get('texto')?.value,
-      fechaCreacion: new Date
+    if(this.comentario == undefined) {
+
+      // Agregamos un nuevo comentario
+      const comentario: Comentario = {      
+        titulo: this.agregarComentario.get('titulo')?.value,
+        creador: this.agregarComentario.get('creador')?.value,
+        texto: this.agregarComentario.get('texto')?.value,
+        fechaCreacion: new Date
+      }
+      this._comentarioService.saveComentario(comentario).subscribe(data => {
+        this.router.navigate(['/']);
+      }, error => {
+        console.log(error);
+      })
+    } else {
+
+      // Editamos comentario
+      const comentario: Comentario = {
+        id: this.comentario.id,
+        titulo: this.agregarComentario.get('titulo')?.value,
+        creador: this.agregarComentario.get('creador')?.value,
+        texto: this.agregarComentario.get('texto')?.value,
+        fechaCreacion: this.comentario.fechaCreacion
+      }
+
+      this._comentarioService.updateComentario(this.id, comentario).subscribe(data => {
+        this.router.navigate(['/']);
+      }, error => {
+        console.log(error);
+      })
     }
-    this._comentarioService.saveComentario(comentario).subscribe(data => {
-      this.router.navigate(['/']);
-    }, error => {
-      console.log(error);
-    })
+
+
   }
 }
